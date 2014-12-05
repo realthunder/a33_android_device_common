@@ -1,0 +1,36 @@
+#!/system/bin/sh
+
+help()
+{
+	echo "Usage: "
+	echo "	sunxidump read address_begin address_end"
+	echo "	sunxidump write address value"
+	echo "Examples:"
+	echo "	#sunxidump read 0xf1c20800 0xf1c20820"
+	echo "	#0xf1c20800: 0x77777777 0x00000000 0x00000000 0x00000000 "
+	echo "	#0xf1c20810: 0x00000055 0x00005555 0x00000000 0x00000000 "
+	echo "	#0xf1c20820: 0x00000000   "
+	echo ""
+	echo "	#sunxidump write 0xf1c20800 0x05050505"
+	echo "	#reg         to_write    after_write"
+	echo "	#0xf1c20800  0x05050505  0x05050505"
+	echo ""
+}
+
+case "$1" in
+read)
+	read_addr=$2
+	read_addr_end=$3
+	echo $read_addr,$read_addr_end > /sys/class/sunxi_dump/dump
+	cat /sys/class/sunxi_dump/dump
+	;;
+write)
+	write_addr=$2
+	write_value=$3
+	echo $write_addr $write_value > /sys/class/sunxi_dump/write
+	cat /sys/class/sunxi_dump/write
+	;;
+*)
+	help
+	;;
+esac

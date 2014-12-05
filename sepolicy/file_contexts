@@ -1,0 +1,6 @@
+# label graphics device with a new type, we need
+# to allow write operation from appdomain
+/dev/pvr_sync              u:object_r:powervr_device:s0
+/system/bin/mount.exfat        u:object_r:mount_exec:s0
+/system/bin/ntfs-3g            u:object_r:mount_exec:s0
+/dev/mali0              u:object_r:mali_device:s0
